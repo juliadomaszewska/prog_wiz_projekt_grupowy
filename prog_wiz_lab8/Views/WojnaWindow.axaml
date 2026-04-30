@@ -1,0 +1,34 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="prog_wiz_lab8.Views.WojnaWindow"
+        Title="Wojna - Logowanie Gracza"
+        Width="400" Height="300"
+        WindowStartupLocation="CenterScreen">
+    <Panel Background="#1E1E24">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="20">
+            <TextBlock Text="Rejestracja - Wojna" 
+                       FontSize="26" 
+                       Foreground="#809BE3"
+                       HorizontalAlignment="Center"/>
+
+            <TextBlock Text="Podaj login/ID gracza:" 
+                       Foreground="#A0A0A0"
+                       HorizontalAlignment="Center"/>
+
+            <TextBox x:Name="PlayerNameTextBox"
+                    Width="200" Height="40" 
+                    HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                    CornerRadius="5"/>
+
+            <Button Content="Zacznij rozgrywkę!" 
+                    Width="180" Height="40"
+                    Background="#839DE3" Foreground="WhiteSmoke"
+                    HorizontalAlignment="Center"
+                    HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                    Click="StartGame_Click"/>
+        </StackPanel>
+    </Panel>
+</Window>
