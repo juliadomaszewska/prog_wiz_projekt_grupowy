@@ -7,7 +7,9 @@
         x:Class="prog_wiz_lab8.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="prog_wiz_lab8">
+        Title="prog_wiz_lab8"
+        Width="600" Height="600"
+        WindowStartupLocation="CenterScreen">
 
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
@@ -15,6 +17,50 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <Panel Background="#1E1E24">
+        <Border Background="#40404B" 
+                CornerRadius="20" 
+                Padding="50" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center">
+            
+            <Border.BoxShadow>
+                <BoxShadows>0 10 30 0 #60000000</BoxShadows>
+            </Border.BoxShadow>
+
+            <StackPanel Spacing="20">
+                           
+                <TextBlock Text="WYBIERZ GRE KARCIANĄ" 
+                           FontSize="18" 
+                           Foreground="WhiteSmoke"
+                           Margin="0,0,0,25" 
+                           HorizontalAlignment="Center"/>
+                           
+                <Button Content="Gra 1: Wojna" 
+                        Width="320" Height="55"
+                        FontSize="18"
+                        CornerRadius="10"
+                        Background="#839DE3" Foreground="#2A2A2A"
+                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                        Click="BtnGame1_Click"/>
+                        
+                <Button Content="Gra 2: Memory" 
+                        Width="320" Height="55"
+                        FontSize="18" Foreground="#2A2A2A"
+                        CornerRadius="10"
+                        Background="#F0A0D6"
+                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                        Click="BtnGame2_Click"/>
+                        
+                <Button Content="Gra 3: Do uzupełnienia - Julia Chmielewska" 
+                        Width="320" Height="55"
+                        FontSize="18"
+                        CornerRadius="10"
+                        Background="#CFB1EB" Foreground="#2A2A2A"
+                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                        Click="BtnGame3_Click"/>
+            </StackPanel>
+        </Border>
+    </Panel>
 
 </Window>
