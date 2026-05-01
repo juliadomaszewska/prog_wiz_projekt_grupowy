@@ -1,0 +1,32 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:MemoryGame.ViewModels"
+        xmlns:models="using:MemoryGame.Models"
+        x:Class="MemoryGame.Views.HistoryWindow"
+        x:DataType="vm:HistoryWindowViewModel"
+        Title="History of Games"
+        Width="560"
+        Height="520">
+
+  <StackPanel Margin="16" Spacing="12">
+    <TextBlock Text="Game History" FontSize="24" FontWeight="Bold"/>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+      <ItemsControl ItemsSource="{Binding Entries}">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate x:DataType="models:GameHistoryEntry">
+            <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="6" Padding="10" Margin="0,0,0,8">
+              <StackPanel Spacing="4">
+                <TextBlock Text="{Binding GameName}" FontWeight="Bold"/>
+                <TextBlock Text="{Binding PlayerName}"/>
+                <TextBlock Text="{Binding Result}"/>
+                <TextBlock Text="{Binding Moves, StringFormat='Moves: {0}'}"/>
+                <TextBlock Text="{Binding PlayedAtText}" FontStyle="Italic" FontSize="12"/>
+              </StackPanel>
+            </Border>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </ScrollViewer>
+    <Button Name="CloseButton" Content="Close" HorizontalAlignment="Right" Width="90" Click="CloseButton_Click"/>
+  </StackPanel>
+</Window>
