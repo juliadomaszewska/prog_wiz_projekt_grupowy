@@ -144,7 +144,7 @@ public partial class MakaoViewModel : ViewModelBase
     private async Task ComputerTurn()
     {
         IsPlayerTurn = false;
-        GameMessage = "Komputer myśli...";
+        
         await Task.Delay(1500); // 1.5 sekundy dramatyzmu i realizmu 
 
         var cardToPlay = ComputerCards.FirstOrDefault(c => IsMoveValid(c));
@@ -153,7 +153,6 @@ public partial class MakaoViewModel : ViewModelBase
         {
             ComputerCards.Remove(cardToPlay);
             TopCard = cardToPlay;
-            GameMessage = $"Komputer rzucił {cardToPlay.DisplayName}!";
             ApplySpecialRules(cardToPlay, ComputerCards);
         }
         else
@@ -165,13 +164,12 @@ public partial class MakaoViewModel : ViewModelBase
                var c = _deck.DrawCard();
                if(c != null) ComputerCards.Add(c);
             }
-            GameMessage = _drawPenalty > 0 ? $"Komputer wziął {_drawPenalty} kart kary!" : "Komputer pasuje i dobiera kartę.";
             _drawPenalty = 0;
         }
 
         if (ComputerCards.Count == 0) 
         { 
-            GameMessage = "KOMPUTER WYGRAŁ!"; 
+            GameMessage = "PRZECIWNIK WYGRAŁ!"; 
             ZapiszWynikDoHistorii("PORAŻKA"); 
             return; 
         }
