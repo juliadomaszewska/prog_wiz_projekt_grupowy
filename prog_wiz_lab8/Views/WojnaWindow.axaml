@@ -5,11 +5,11 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="prog_wiz_lab8.Views.WojnaWindow"
         Title="Wojna - Logowanie Gracza"
-        Width="400" Height="300"
+        Width="500" Height="650"
         WindowStartupLocation="CenterScreen">
     <Panel Background="#1E1E24">
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="20">
-            <TextBlock Text="Rejestracja - Wojna" 
+        <StackPanel x:Name="LoginPanel" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="20">
+            <TextBlock Text="REJESTRACJA" 
                        FontSize="26" 
                        Foreground="#809BE3"
                        HorizontalAlignment="Center"/>
@@ -30,5 +30,35 @@
                     HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                     Click="StartGame_Click"/>
         </StackPanel>
+
+        <Grid x:Name="GamePanel" IsVisible="False" RowDefinitions="Auto, *, Auto, *, Auto" Margin="20">
+            
+            <StackPanel Grid.Row="0" HorizontalAlignment="Center" Spacing="5">
+                <TextBlock x:Name="ComputerCardsCount" Text="Przeciwnik: BOT (Karty: ?)" Foreground="#A0A0A0" HorizontalAlignment="Center"/>
+            </StackPanel>
+            
+            <Border Grid.Row="1" Width="120" Height="180" Background="#2B2B36" CornerRadius="10" BorderBrush="#809BE3" BorderThickness="2" HorizontalAlignment="Center">
+                <TextBlock x:Name="ComputerCardText" Text="?" FontSize="20" Foreground="WhiteSmoke" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap"/>
+            </Border>
+
+            <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="15" Margin="0, 20">
+                <TextBlock x:Name="FightResultText" Text="Wyłóż kartę, aby walczyć!" FontSize="18" Foreground="#809BE3" HorizontalAlignment="Center"/>
+                <Button Content="⚔ WALCZ! ⚔" 
+                        Width="180" Height="50" 
+                        Background="#809BE3" Foreground="WhiteSmoke" 
+                        FontSize="18"
+                        HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                        Click="Fight_Click" />
+            </StackPanel>
+
+            <Border Grid.Row="3" Width="120" Height="180" Background="#2B2B36" CornerRadius="10" BorderBrush="#839DE3" BorderThickness="2" HorizontalAlignment="Center">
+                <TextBlock x:Name="PlayerCardText" Text="?" FontSize="20" Foreground="WhiteSmoke" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap"/>
+            </Border>
+
+            <StackPanel Grid.Row="4" HorizontalAlignment="Center" Spacing="5">
+                <TextBlock x:Name="PlayerCardsCount" Text="Gracz: (Karty: ?)" Foreground="#A0A0A0" HorizontalAlignment="Center"/>
+            </StackPanel>
+            
+        </Grid>
     </Panel>
 </Window>

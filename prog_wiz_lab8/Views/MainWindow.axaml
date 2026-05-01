@@ -40,7 +40,7 @@
                         Width="320" Height="55"
                         FontSize="18"
                         CornerRadius="10"
-                        Background="#839DE3" Foreground="#2A2A2A"
+                        Background="#809BE3" Foreground="#2A2A2A"
                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                         Click="BtnGame1_Click"/>
                         
