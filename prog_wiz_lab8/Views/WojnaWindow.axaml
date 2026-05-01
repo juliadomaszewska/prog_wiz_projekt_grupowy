@@ -29,9 +29,14 @@
                     HorizontalAlignment="Center"
                     HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                     Click="StartGame_Click"/>
-        </StackPanel>
+            <Button Content="Historia" 
+                    Width="180" Height="40"
+                    Background="#425791" Foreground="WhiteSmoke"
+                    HorizontalAlignment="Center"
+                    HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                    Click="History_Click"/>        </StackPanel>
 
-        <Grid x:Name="GamePanel" IsVisible="False" RowDefinitions="Auto, *, Auto, *, Auto" Margin="20">
+        <Grid x:Name="GamePanel" IsVisible="False" RowDefinitions="Auto, *, Auto, *, Auto, Auto" Margin="20">
             
             <StackPanel Grid.Row="0" HorizontalAlignment="Center" Spacing="5">
                 <TextBlock x:Name="ComputerCardsCount" Text="Przeciwnik: BOT (Karty: ?)" Foreground="#A0A0A0" HorizontalAlignment="Center"/>
@@ -58,6 +63,16 @@
             <StackPanel Grid.Row="4" HorizontalAlignment="Center" Spacing="5">
                 <TextBlock x:Name="PlayerCardsCount" Text="Gracz: (Karty: ?)" Foreground="#A0A0A0" HorizontalAlignment="Center"/>
             </StackPanel>
+            
+            <Button Grid.Row="5"
+                    Content="🏳️ Poddaj się (Zapisz w historii)" 
+                    Width="220" Height="30"
+                    Background="#333" Foreground="LightGray"
+                    FontSize="12"
+                    Margin="0, 30, 0, 0"
+                    HorizontalAlignment="Center"
+                    HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                    Click="GiveUp_Click"/>
             
         </Grid>
     </Panel>

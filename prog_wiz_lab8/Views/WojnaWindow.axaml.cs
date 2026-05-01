@@ -40,6 +40,12 @@ public partial class WojnaWindow : Window
         UpdateLabels();
     }
 
+    private void History_Click(object? sender, RoutedEventArgs e)
+    {
+        var historia = new HistoriaWojnaWindow();
+        historia.Show();
+    }
+
     private void Fight_Click(object? sender, RoutedEventArgs e)
     {
         if (_playerCards.Count == 0 || _computerCards.Count == 0)
@@ -98,17 +104,43 @@ public partial class WojnaWindow : Window
         ComputerCardsCount.Text = $"Przeciwnik BOT: (Ilość kart: {_computerCards.Count})";
     }
 
-    private void EndGame()
+    private void GiveUp_Click(object? sender, RoutedEventArgs e)
     {
-        if (_playerCards.Count > _computerCards.Count)
+        EndGame("Poddana");
+    }
+
+    private void EndGame(string? wymuszonyWynik = null)
+    {
+        string wynik;
+        
+        if (wymuszonyWynik == "Poddana")
+        {
+            FightResultText.Text = "Poddano rozgrywkę...";
+            wynik = "Poddana";
+        }
+        else if (_playerCards.Count > _computerCards.Count)
         {
             FightResultText.Text = "🏆 WYGRAŁEŚ CAŁĄ GRĘ! 🏆";
+            wynik = "Wygrana";
         }
         else
         {
             FightResultText.Text = "Niestety, przegrałeś ten mecz.";
+            wynik = "Przegrana";
         }
         
         FightResultText.Foreground = Avalonia.Media.Brushes.Goldenrod;
+
+        string path = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "historia_wojna.txt");
+        string linijkaHistorii = $"{System.DateTime.Now:yyyy-MM-dd HH:mm} | Gracz: {_playerName} | Wynik: {wynik}\n";
+        System.IO.File.AppendAllText(path, linijkaHistorii);
+
+        GamePanel.IsVisible = false;
+        LoginPanel.IsVisible = true;
+        this.Title = "Wojna - Logowanie Gracza";
+        PlayerCardText.Text = "?";
+        ComputerCardText.Text = "?";
+        FightResultText.Text = "Wyłóż kartę, aby walczyć!";
+        FightResultText.Foreground = Avalonia.Media.Brushes.LightBlue;
     }
 }
