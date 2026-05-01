@@ -1,0 +1,15 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="prog_wiz_lab8.Views.HistoriaWojnaWindow"
+        Title="HISTORIA ROZGRYWEK - WOJNA"
+        Width="400" Height="500"
+        WindowStartupLocation="CenterScreen">
+    <Panel Background="#1E1E24">
+        <StackPanel Margin="20" Spacing="15">
+            <TextBlock Text="Historia Rozgrywek" FontSize="22" Foreground="#809BE3" HorizontalAlignment="Center"/>
+            <ScrollViewer Height="400">
+                <TextBlock x:Name="HistoryTextBlock" Foreground="WhiteSmoke" FontSize="16" TextWrapping="Wrap"/>
+            </ScrollViewer>
+        </StackPanel>
+    </Panel>
+</Window>

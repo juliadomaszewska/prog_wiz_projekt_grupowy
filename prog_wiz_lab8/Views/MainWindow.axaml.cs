@@ -12,8 +12,9 @@ public partial class MainWindow : Window
 
     private void BtnGame1_Click(object? sender, RoutedEventArgs e)
     {
-        // Tutaj otwierać się będzie okno Gry 1 (robionej przez Ciebie lub koleżankę)
-        // np. new Game1Window().Show();
+        // Utworzenie i otwarcie Twojego okna po kliknięciu 1 gry
+        var wojnaWindow = new WojnaWindow();
+        wojnaWindow.Show();
     }
 
     private void BtnGame2_Click(object? sender, RoutedEventArgs e)
