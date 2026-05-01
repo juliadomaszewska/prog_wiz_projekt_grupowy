@@ -1,0 +1,3 @@
+[2026-05-02 00:31:19] Gra: Makao | Gracz: Julia | Wynik: Przerwana przez gracza (Poddanie)
+[2026-05-02 00:33:23] Gra: Makao | Gracz: Julia | Wynik: Przerwana przez gracza (Poddanie)
+[2026-05-02 00:48:12] Gra: Makao | Gracz: Julia | Wynik: Przerwana przez gracza (Poddanie)

@@ -19,7 +19,11 @@ public partial class MainWindow : Window
 
     private void BtnGame2_Click(object? sender, RoutedEventArgs e)
     {
-        // Tutaj otwierać się będzie okno Gry 2
+        var memoryWindow = new MemoryGame.Views.MainWindow
+        {
+            DataContext = new MemoryGame.ViewModels.MainWindowViewModel()
+        };
+        memoryWindow.Show();
     }
 
     private void BtnGame3_Click(object? sender, RoutedEventArgs e)
