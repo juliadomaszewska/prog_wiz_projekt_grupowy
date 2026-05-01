@@ -52,7 +52,7 @@
                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                         Click="BtnGame2_Click"/>
                         
-                <Button Content="Gra 3: Do uzupełnienia - Julia Chmielewska" 
+                <Button Content="Gra 3: Makao" 
                         Width="320" Height="55"
                         FontSize="18"
                         CornerRadius="10"
