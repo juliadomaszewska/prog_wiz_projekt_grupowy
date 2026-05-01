@@ -24,6 +24,7 @@ public partial class MainWindow : Window
 
     private void BtnGame3_Click(object? sender, RoutedEventArgs e)
     {
-        // Tutaj otwierać się będzie okno Gry 3
+        var makaoWindow = new MakaoView();
+        makaoWindow.Show();
     }
 }

@@ -1,3 +1,5 @@
+using System;
+
 namespace prog_wiz_lab8.Models;
 
 public enum CardSuit

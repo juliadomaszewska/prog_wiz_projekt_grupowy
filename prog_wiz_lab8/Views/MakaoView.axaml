@@ -1,0 +1,135 @@
+<Window xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:prog_wiz_lab8.ViewModels"
+             x:Class="prog_wiz_lab8.Views.MakaoView"
+             x:DataType="vm:MakaoViewModel"
+             Title="Gra Makao"
+             Width="800" Height="600"
+             WindowStartupLocation="CenterOwner">
+    
+    <Grid>
+        <!-- EKRAN LOGOWANIA DO GRY -->
+        <Border Background="#1E1E24" IsVisible="{Binding !IsGameStarted}">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="20">
+                <TextBlock Text="Podaj swój ID / Login, aby zagrać w Makao!" 
+                           Foreground="White" FontSize="20" HorizontalAlignment="Center"/>
+                           
+                <TextBox Text="{Binding PlayerName, Mode=TwoWay}" PlaceholderText="Wpisz login gracza..." 
+                         FontSize="18" Width="300" HorizontalAlignment="Center"/>
+                         
+                <Button Content="Rozpocznij Mecz" 
+                        Command="{Binding StartGameCommand}" 
+                        Width="200" Height="45"
+                        HorizontalAlignment="Center" 
+                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                        Background="#CFB1EB" Foreground="#2A2A2A" FontSize="18"/>
+                        
+                <Button Content="Historia Gier (Makao)" 
+                        Width="200" Height="35"
+                        Margin="0,15,0,0"
+                        FontSize="14" FontWeight="Bold"
+                        Background="#3A3A3A" Foreground="Gold"
+                        HorizontalAlignment="Center"
+                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                        Click="BtnHistory_Click"/>
+            </StackPanel>
+        </Border>
+
+        <!-- WŁAŚCIWY EKRAN GRY MAKAO (na zielonym stole) -->
+        <Grid Background="Green" IsVisible="{Binding IsGameStarted}">
+            <!-- Dzielimy stół na 3 części: góra, środek (stół) i dół (karty gracza) -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/> <!-- Na pasek z imieniem -->
+                <RowDefinition Height="*"/>    <!-- Środek (stół) -->
+                <RowDefinition Height="Auto"/> <!-- Na na twoje karty -->
+            </Grid.RowDefinitions>
+
+            <!-- PASEK GÓRNY (Karty Komputera) -->
+            <StackPanel Grid.Row="0" Margin="10">
+                <TextBlock Text="Przeciwnik: KOMPUTER" Foreground="White" FontWeight="Bold" FontSize="18" HorizontalAlignment="Center"/>
+                
+                <ItemsControl ItemsSource="{Binding ComputerCards}" HorizontalAlignment="Center" Margin="0,5,0,0">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" Spacing="-50"/> <!-- Minusowy spacing by karty leżały na sobie -->
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="Firebrick" Width="60" Height="90" CornerRadius="5" BorderBrush="White" BorderThickness="1"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                
+                <Button Content="Zakończ Grę" 
+                        Command="{Binding EndGameCommand}" 
+                        Background="Gold" Foreground="Black"
+                        HorizontalAlignment="Right" Margin="0,-60,0,0"/>
+            </StackPanel>
+
+            <!-- ŚRODEK (STÓŁ) -->
+            <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="20">
+                
+                <!-- Informacja co się dzieje / Żądania / Kary -->
+                <Border Background="#40000000" CornerRadius="10" Padding="15,5">
+                    <TextBlock Text="{Binding GameMessage}" 
+                               Foreground="Yellow" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center"/>
+                </Border>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="30">
+                    <!-- Talia do dobierania (Karta odwrócona plecami) -->
+                    <Button Background="Maroon" Width="100" Height="140" 
+                            CornerRadius="10" BorderBrush="White" BorderThickness="2"
+                            IsEnabled="{Binding IsPlayerTurn}"
+                            Command="{Binding DrawOneCardCommand}"
+                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                        <TextBlock Text="DOBIERZ" 
+                                   Foreground="White" FontSize="16" FontWeight="Bold"/>
+                    </Button>
+
+                <!-- Karta rzucona na stół (TopCard) -->
+                <Border Background="White" Width="100" Height="140" 
+                        CornerRadius="10" BorderBrush="Black" BorderThickness="1"
+                        BoxShadow="3 3 10 0 #50000000">
+                    <TextBlock Text="{Binding TopCard.DisplayName}" 
+                               Foreground="Black" FontSize="20" FontWeight="Bold"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"
+                               TextWrapping="Wrap" TextAlignment="Center"/>
+                </Border>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- DÓŁ (TWOJE KARTY) -->
+            <StackPanel Grid.Row="2" Margin="0,0,0,20">
+                <TextBlock Text="{Binding PlayerName, StringFormat='{}Twoje karty, {0}:'}" 
+                           Foreground="White" FontSize="16" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                
+                <ItemsControl ItemsSource="{Binding PlayerCards}" HorizontalAlignment="Center"
+                              IsEnabled="{Binding IsPlayerTurn}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" Spacing="10"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <!-- Karta gracza jako klikalny przycisk! -->
+                            <Button Background="White" Width="90" Height="130" 
+                                    CornerRadius="10" BorderBrush="Black" BorderThickness="1"
+                                    x:CompileBindings="False"
+                                    Command="{Binding $parent[Window].DataContext.PlayCardCommand}" 
+                                    CommandParameter="{Binding}">
+                                <TextBlock Text="{Binding DisplayName}" 
+                                           Foreground="Black" FontSize="18" FontWeight="Bold"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                                           TextWrapping="Wrap" TextAlignment="Center"/>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </Grid>
+    </Grid>
+    
+</Window>
