@@ -15,10 +15,10 @@ public partial class MainWindow : Window
     {
         if (sender is Button btn && btn.DataContext is CardViewModel card)
         {
-            // Jeśli karta nie jest matched → odwróć ją
-            if (!card.IsMatched)
+            // Wywołujemy metodę z ViewModelu
+            if (DataContext is MainWindowViewModel vm)
             {
-                card.IsFaceUp = false;
+                vm.OnCardDoubleClicked(card);
             }
         }
     }

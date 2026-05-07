@@ -10,21 +10,18 @@ public class CardViewModel : ObservableObject
     private bool _isFaceUp;
     private bool _isMatched;
 
-    public CardViewModel(string symbol, Action<CardViewModel> onClick)
+    public CardViewModel(string symbol, Action<CardViewModel> onClick, Action<CardViewModel> onDoubleClick)
     {
         Symbol = symbol;
         ClickCommand = new RelayCommand(() => onClick(this));
+        DoubleClickCommand = new RelayCommand(() => onDoubleClick(this));
     }
 
     public string Symbol { get; }
-    public ICommand ClickCommand { get; }
 
-    public CardViewModel(string symbol, Action<CardViewModel> onClick, Action<CardViewModel> onDoubleClick)
-{
-    Symbol = symbol;
-    ClickCommand = new RelayCommand(() => onClick(this));
-    DoubleClickCommand = new RelayCommand(() => onDoubleClick(this));
-}
+    public ICommand ClickCommand { get; }
+    public ICommand DoubleClickCommand { get; }
+
     public bool IsFaceUp
     {
         get => _isFaceUp;

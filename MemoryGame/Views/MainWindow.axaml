@@ -38,7 +38,7 @@
           <Button Command="{Binding ClickCommand}"
                   Width="120" Height="120"
                   Margin="4"
-                  DoubleTapped="{Binding DoubleClickCommand}">
+                  DoubleTapped="Card_DoubleTapped">
 
             <TextBlock Text="{Binding DisplayText}"
                        FontSize="32"

@@ -115,10 +115,9 @@ public partial class MainWindowViewModel : ViewModelBase
 
     private void OnCardDoubleClicked(CardViewModel card)
     {
-        if (!card.IsMatched)
-            card.IsFaceUp = false;
+    if (!card.IsMatched)
+        card.IsFaceUp = false;
     }
-
     private void OpenHistory()
     {
         var historyWindow = new HistoryWindow(new HistoryWindowViewModel(HistoryEntries));
