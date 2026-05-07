@@ -8,12 +8,15 @@
         Height="720">
 
   <StackPanel Margin="16" Spacing="12">
+
     <TextBlock Text="Memory" FontSize="34" HorizontalAlignment="Center"/>
+
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="16">
       <StackPanel Spacing="4">
         <TextBlock Text="Player" FontWeight="Bold"/>
         <TextBox Text="{Binding PlayerName, Mode=TwoWay}" Width="180"/>
       </StackPanel>
+
       <Button Command="{Binding NewGameCommand}" Content="New game" Width="120"/>
       <Button Command="{Binding ShowHistoryCommand}" Content="History" Width="120"/>
     </StackPanel>
@@ -29,13 +32,23 @@
           <WrapPanel ItemWidth="130" ItemHeight="130" Orientation="Horizontal"/>
         </ItemsPanelTemplate>
       </ItemsControl.ItemsPanel>
+
       <ItemsControl.ItemTemplate>
         <DataTemplate x:DataType="vm:CardViewModel">
-          <Button Command="{Binding ClickCommand}" Width="120" Height="120" Margin="4">
-            <TextBlock Text="{Binding DisplayText}" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+          <Button Command="{Binding ClickCommand}"
+                  Width="120" Height="120"
+                  Margin="4"
+                  DoubleTapped="Card_DoubleTapped">
+
+            <TextBlock Text="{Binding DisplayText}"
+                       FontSize="32"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+
           </Button>
         </DataTemplate>
       </ItemsControl.ItemTemplate>
     </ItemsControl>
+
   </StackPanel>
 </Window>

@@ -54,7 +54,7 @@ public partial class MainWindowViewModel : ViewModelBase
         _isBusy = false;
         Cards.Clear();
 
-        var symbols = new[] { "A", "B", "C", "D", "E", "F", "G", "H" }
+        var symbols = new[] { "🂮", "🂫", "🂽", "🃑", "🃚", "🃇", "🃉", "🂣" }
             .SelectMany(x => new[] { x, x })
             .OrderBy(_ => Guid.NewGuid())
             .ToArray();

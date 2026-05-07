@@ -25,9 +25,7 @@ public class CardViewModel : ObservableObject
         set
         {
             if (SetProperty(ref _isFaceUp, value))
-            {
                 OnPropertyChanged(nameof(DisplayText));
-            }
         }
     }
 
@@ -37,9 +35,7 @@ public class CardViewModel : ObservableObject
         set
         {
             if (SetProperty(ref _isMatched, value))
-            {
                 OnPropertyChanged(nameof(DisplayText));
-            }
         }
     }
 
