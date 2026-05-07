@@ -113,7 +113,7 @@ public partial class MainWindowViewModel : ViewModelBase
         StatusText = "Try again.";
     }
 
-    private void OnCardDoubleClicked(CardViewModel card)
+    public void OnCardDoubleClicked(CardViewModel card)
     {
     if (!card.IsMatched)
         card.IsFaceUp = false;
