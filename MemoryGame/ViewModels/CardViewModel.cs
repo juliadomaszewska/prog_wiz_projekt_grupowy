@@ -19,6 +19,12 @@ public class CardViewModel : ObservableObject
     public string Symbol { get; }
     public ICommand ClickCommand { get; }
 
+    public CardViewModel(string symbol, Action<CardViewModel> onClick, Action<CardViewModel> onDoubleClick)
+{
+    Symbol = symbol;
+    ClickCommand = new RelayCommand(() => onClick(this));
+    DoubleClickCommand = new RelayCommand(() => onDoubleClick(this));
+}
     public bool IsFaceUp
     {
         get => _isFaceUp;

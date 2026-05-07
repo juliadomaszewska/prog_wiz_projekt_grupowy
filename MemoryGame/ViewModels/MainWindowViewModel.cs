@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using MemoryGame.Models;
 using MemoryGame.Views;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,6 +27,7 @@ public partial class MainWindowViewModel : ViewModelBase
     }
 
     public string Title { get; } = "Memory Game";
+
     public string PlayerName
     {
         get => _playerName;
@@ -41,8 +41,10 @@ public partial class MainWindowViewModel : ViewModelBase
     }
 
     public string MovesText => $"Moves: {_moves}";
+
     public ObservableCollection<CardViewModel> Cards { get; }
     public ObservableCollection<GameHistoryEntry> HistoryEntries { get; }
+
     public IRelayCommand NewGameCommand { get; }
     public IRelayCommand ShowHistoryCommand { get; }
 
@@ -61,7 +63,7 @@ public partial class MainWindowViewModel : ViewModelBase
 
         foreach (var symbol in symbols)
         {
-            Cards.Add(new CardViewModel(symbol, OnCardClicked));
+            Cards.Add(new CardViewModel(symbol, OnCardClicked, OnCardDoubleClicked));
         }
 
         OnPropertyChanged(nameof(MovesText));
@@ -70,9 +72,7 @@ public partial class MainWindowViewModel : ViewModelBase
     private async void OnCardClicked(CardViewModel card)
     {
         if (_isBusy || card.IsFaceUp || card.IsMatched)
-        {
             return;
-        }
 
         card.IsFaceUp = true;
 
@@ -111,6 +111,12 @@ public partial class MainWindowViewModel : ViewModelBase
         _firstCard = null;
         _isBusy = false;
         StatusText = "Try again.";
+    }
+
+    private void OnCardDoubleClicked(CardViewModel card)
+    {
+        if (!card.IsMatched)
+            card.IsFaceUp = false;
     }
 
     private void OpenHistory()
