@@ -3,6 +3,7 @@
         xmlns:vm="using:prog_wiz_lab8.ViewModels"
         x:Class="prog_wiz_lab8.Views.HistoryView"
         x:DataType="vm:HistoryViewModel"
+        x:CompileBindings="False"
         Title="Historia Rozgrywek"
         Width="600" Height="400"
         WindowStartupLocation="CenterOwner">

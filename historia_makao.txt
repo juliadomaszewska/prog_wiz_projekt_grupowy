@@ -1,1 +1,4 @@
 [2026-05-02 00:09:43] Gra: Makao | Gracz: sdfg | Wynik: Przerwana przez gracza (Poddanie)
+[2026-05-07 10:22:42] Gra: Makao | Gracz: asdfg | Wynik: Przerwana przez gracza (Poddanie)
+[2026-05-07 10:25:42] Gra: Makao | Gracz: sdfghj | Wynik: Przerwana przez gracza (Poddanie)
+[2026-05-07 10:30:25] Gra: Makao | Gracz: nm | Wynik: Przerwana przez gracza (Poddanie)
