@@ -15,6 +15,7 @@ public partial class MainWindowViewModel : ViewModelBase
     private string _statusText = "Click a card to begin";
     private int _moves;
     private bool _isBusy;
+    private bool _doubleClickInProgress = false;   // ⭐ TU JEST TWÓJ BOOL
     private CardViewModel? _firstCard;
 
     public MainWindowViewModel()
@@ -54,6 +55,7 @@ public partial class MainWindowViewModel : ViewModelBase
         StatusText = "Find matching pairs.";
         _firstCard = null;
         _isBusy = false;
+        _doubleClickInProgress = false;
         Cards.Clear();
 
         var symbols = new[] { "🂮", "🂫", "🂽", "🃑", "🃚", "🃇", "🃉", "🂣" }
@@ -71,6 +73,10 @@ public partial class MainWindowViewModel : ViewModelBase
 
     private async void OnCardClicked(CardViewModel card)
     {
+        // ⭐ BLOKADA: jeśli trwa double-click → IGNORUJ kliknięcie
+        if (_doubleClickInProgress)
+            return;
+
         if (_isBusy || card.IsFaceUp || card.IsMatched)
             return;
 
@@ -113,11 +119,18 @@ public partial class MainWindowViewModel : ViewModelBase
         StatusText = "Try again.";
     }
 
+    // ⭐ DOUBLE CLICK — działa, ale NIE wywołuje logiki gry
     public void OnCardDoubleClicked(CardViewModel card)
     {
-    if (!card.IsMatched)
-        card.IsFaceUp = false;
+        _doubleClickInProgress = true;
+
+        if (!card.IsMatched)
+            card.IsFaceUp = false;
+
+        // reset flagi po chwili
+        Task.Delay(80).ContinueWith(_ => _doubleClickInProgress = false);
     }
+
     private void OpenHistory()
     {
         var historyWindow = new HistoryWindow(new HistoryWindowViewModel(HistoryEntries));
