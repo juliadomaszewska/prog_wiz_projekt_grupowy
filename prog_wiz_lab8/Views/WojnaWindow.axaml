@@ -48,12 +48,20 @@
 
             <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="15" Margin="0, 20">
                 <TextBlock x:Name="FightResultText" Text="Wyłóż kartę, aby walczyć!" FontSize="18" Foreground="#809BE3" HorizontalAlignment="Center"/>
-                <Button Content="⚔ WALCZ! ⚔" 
-                        Width="180" Height="50" 
-                        Background="#809BE3" Foreground="WhiteSmoke" 
-                        FontSize="18"
-                        HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                        Click="Fight_Click" />
+                <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Center">
+                    <Button Content="⚔ WALCZ! ⚔" 
+                            Width="150" Height="50" 
+                            Background="#809BE3" Foreground="WhiteSmoke" 
+                            FontSize="16" FontWeight="Bold"
+                            HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                            Click="Fight_Click" />
+                    <Button Content="AUTO" 
+                            Width="150" Height="50" 
+                            Background="#C080E3" Foreground="WhiteSmoke" 
+                            FontSize="16" FontWeight="Bold"
+                            HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                            Click="AutoFight_Click" />
+                </StackPanel>
             </StackPanel>
 
             <Border Grid.Row="3" Width="120" Height="180" Background="#2B2B36" CornerRadius="10" BorderBrush="#839DE3" BorderThickness="2" HorizontalAlignment="Center">

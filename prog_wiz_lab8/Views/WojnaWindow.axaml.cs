@@ -89,6 +89,22 @@ public partial class WojnaWindow : Window
         if (_playerCards.Count == 0 || _computerCards.Count == 0) EndGame();
     }
 
+    private async void AutoFight_Click(object? sender, RoutedEventArgs e)
+    {
+        // Zabezpieczenie przed kliknięciem, gdy gra już się skończyła
+        if (_playerCards.Count == 0 || _computerCards.Count == 0) return;
+
+        // Opcjonalne: możesz wyłączyć widoczność guzików podczas pętli
+        while (_playerCards.Count > 0 && _computerCards.Count > 0)
+        {
+            Fight_Click(this, new RoutedEventArgs());
+            
+            // Opcjonalne wizualne spowolnienie (0.1s pauzy), żeby widzieć zmieniające się karty.
+            // Jeśli ma skoczyć w ułamek sekundy od razu do mety, usuń linijkę poniżej!
+            await System.Threading.Tasks.Task.Delay(50);
+        }
+    }
+
     private void GiveTableCardsToWinner(Queue<Card> winnerDeck)
     {
         foreach (var card in _tableCards)
