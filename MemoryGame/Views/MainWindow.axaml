@@ -37,8 +37,7 @@
         <DataTemplate x:DataType="vm:CardViewModel">
           <Button Command="{Binding ClickCommand}"
                   Width="120" Height="120"
-                  Margin="4"
-                  DoubleTapped="Card_DoubleTapped">
+                  Margin="4">
 
             <TextBlock Text="{Binding DisplayText}"
                        FontSize="32"

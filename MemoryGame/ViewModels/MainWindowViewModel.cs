@@ -15,7 +15,6 @@ public partial class MainWindowViewModel : ViewModelBase
     private string _statusText = "Click a card to begin";
     private int _moves;
     private bool _isBusy;
-    private bool _doubleClickInProgress = false;   // ⭐ TU JEST TWÓJ BOOL
     private CardViewModel? _firstCard;
 
     public MainWindowViewModel()
@@ -55,7 +54,6 @@ public partial class MainWindowViewModel : ViewModelBase
         StatusText = "Find matching pairs.";
         _firstCard = null;
         _isBusy = false;
-        _doubleClickInProgress = false;
         Cards.Clear();
 
         var symbols = new[] { "🂮", "🂫", "🂽", "🃑", "🃚", "🃇", "🃉", "🂣" }
@@ -65,70 +63,103 @@ public partial class MainWindowViewModel : ViewModelBase
 
         foreach (var symbol in symbols)
         {
-            Cards.Add(new CardViewModel(symbol, OnCardClicked, OnCardDoubleClicked));
+            Cards.Add(new CardViewModel(symbol, OnCardClicked));
         }
 
         OnPropertyChanged(nameof(MovesText));
     }
 
-    private async void OnCardClicked(CardViewModel card)
+    private void OnCardClicked(CardViewModel card)
     {
-        // ⭐ BLOKADA: jeśli trwa double-click → IGNORUJ kliknięcie
-        if (_doubleClickInProgress)
-            return;
+        if (_isBusy || card.IsMatched) return;
 
-        if (_isBusy || card.IsFaceUp || card.IsMatched)
-            return;
-
-        card.IsFaceUp = true;
-
-        if (_firstCard == null)
+        if (card.IsFaceUp)
         {
-            _firstCard = card;
-            StatusText = "Choose the second card.";
-            return;
-        }
-
-        _moves++;
-        OnPropertyChanged(nameof(MovesText));
-
-        if (_firstCard.Symbol == card.Symbol)
-        {
-            _firstCard.IsMatched = true;
-            card.IsMatched = true;
-            StatusText = "Great! You found a pair.";
-            _firstCard = null;
-
-            if (Cards.All(c => c.IsMatched))
+            if (card == _firstCard)
             {
-                StatusText = $"You won in {_moves} moves!";
-                AddHistoryEntry("Win");
+                // Flip back the first card
+                card.IsFaceUp = false;
+                _firstCard = null;
+                StatusText = "Find matching pairs.";
+                return;
             }
+            else if (_firstCard == null)
+            {
+                // Flip back a mismatched card
+                card.IsFaceUp = false;
+                return;
+            }
+            else
+            {
+                // Selecting second card
+                _moves++;
+                OnPropertyChanged(nameof(MovesText));
 
-            return;
+                if (_firstCard.Symbol == card.Symbol)
+                {
+                    _firstCard.IsMatched = true;
+                    card.IsMatched = true;
+                    StatusText = "Great! You found a pair.";
+                    _firstCard = null;
+
+                    if (Cards.All(c => c.IsMatched))
+                    {
+                        StatusText = $"You won in {_moves} moves!";
+                        AddHistoryEntry("Win");
+                    }
+
+                    return;
+                }
+                else
+                {
+                    StatusText = "Not a match.";
+                    _firstCard = null;
+                    StatusText = "Try again.";
+                    return;
+                }
+            }
         }
+        else
+        {
+            // Flip up
+            card.IsFaceUp = true;
 
-        StatusText = "Not a match.";
-        _isBusy = true;
-        await Task.Delay(800);
+            if (_firstCard == null)
+            {
+                _firstCard = card;
+                StatusText = "Choose the second card.";
+                return;
+            }
+            else
+            {
+                // Selecting second
+                _moves++;
+                OnPropertyChanged(nameof(MovesText));
 
-        card.IsFaceUp = false;
-        _firstCard.IsFaceUp = false;
-        _firstCard = null;
-        _isBusy = false;
-        StatusText = "Try again.";
-    }
+                if (_firstCard.Symbol == card.Symbol)
+                {
+                    _firstCard.IsMatched = true;
+                    card.IsMatched = true;
+                    StatusText = "Great! You found a pair.";
+                    _firstCard = null;
 
-    // ⭐ DOUBLE CLICK — działa, ale NIE wywołuje logiki gry
-    public void OnCardDoubleClicked(CardViewModel card)
-    {
-        _doubleClickInProgress = true;
+                    if (Cards.All(c => c.IsMatched))
+                    {
+                        StatusText = $"You won in {_moves} moves!";
+                        AddHistoryEntry("Win");
+                    }
 
-        if (!card.IsMatched)
-            card.IsFaceUp = false;
-
-        // reset flagi po chwili
-        Task.Delay(80).ContinueWith(_ => _doubleClickInProgress = false);
+                    return;
+                }
+                else
+                {
+                    StatusText = "Not a match.";
+                    _firstCard = null;
+                    StatusText = "Try again.";
+                    return;
+                }
+            }
+        }
     }
 
     private void OpenHistory()
